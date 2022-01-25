@@ -14,7 +14,11 @@ public class Solution {
         int offset = 1;
         int readLength = 3;
 
-        assertEquals(decryptData(price, discount, offset, readLength), new int[]{50, 10, 33});
+        int[] result = decryptData(price, discount, offset, readLength);
+
+        assertEquals(result[0], 50);
+        assertEquals(result[1], 10);
+        assertEquals(result[2], 33);
     }
 
     public @Nullable int[] decryptData(@NonNull int[] price,
@@ -22,6 +26,13 @@ public class Solution {
                       @IntRange (from = 0) int offset,
                       @IntRange (from = 1) int readLength) {
         //TODO реализовать метод
-        return null;
+        int[] result = new int[readLength];
+        int count = 0;
+        for (int i = offset; i < (offset + readLength); i++) {
+            price[i] -= price[i] * ((double) discount / 100);
+            result[count] = price[i];
+            count++;
+        }
+        return result;
     }
 }
